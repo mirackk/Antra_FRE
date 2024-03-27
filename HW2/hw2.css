@@ -1,0 +1,117 @@
+:root {
+    --green: #0b4d14;
+    --black: #000;
+    --gray: #c6bfbf;
+}
+
+/* Reset some default styles */
+body, ul, h1, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* General styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    color: var(--black);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header and navigation */
+header {
+    background-color: var(--black);
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    /* justify-content: center; */
+    position: relative;
+    left: 15%;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: var(--gray);
+    text-decoration: none;
+}
+
+/* Main content */
+main {
+    margin-top: 40px;
+}
+
+.headbar{
+    background-color: var(--gray);
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+}
+
+h1 {
+    text-align: left;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.head_paragraph {
+    margin: 0;
+    text-align: left;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.row {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px 10%;
+}
+
+.column {
+    flex: 1;
+    margin: 0 20px;
+}
+
+/* Footer */
+footer {
+    box-sizing: border-box;
+    background-color: var(--green);
+    padding: 20px;
+    color: var(--gray);
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.bottom_item a {
+    color: var(--gray);
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+/* List styles */
+ul {
+    list-style-type: square;
+}
+
+li {
+    line-height: 1.6;
+}
