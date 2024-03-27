@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            /* background-color: #f2f2f2; */
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .name-fields {
+            display: flex;
+            gap: 20px;
+        }
+
+        .agree-section {
+            display: flex;
+            text-align: left;
+            margin: 10px;
+        }
+
+        .agree-section label {
+            font-size: 10px;
+            margin-right: 15px;
+            white-space: nowrap;
+        }
+
+        .agree-section p {
+            font-size: 15px;
+            margin: 0;
+        }
+
+        .register {
+            margin: 1px;
+            padding: 3px;
+            border-radius: 4px;
+            background-color: RoyalBlue;
+            color: White;
+        }
+
+        .terms {
+            color: #065eea;
+        }
+        
+        .blue-button {
+            background-color: #065eea;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .green-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* button:hover {
+            background-color: #45a049;
+        } */
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sign Up</h2>
+        <form>
+            <div class="name-fields">
+                    <input type="text" id="firstName" placeholder="Enter your first name" required>
+                    <input type="text" id="lastName" placeholder="Enter your last name" required>
+            </div>
+
+            <input type="text" id="mobileNo" placeholder="Enter your mobile number" required>
+
+            <input type="text" id="emailAddress" placeholder="Enter your email address" required>
+
+            <div class="name-fields">
+                <input type="password" id="password" placeholder="Enter your password" required>
+                <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+            </div>
+
+            <div class="agree-section">
+                <label>
+                    <input type="checkbox" id="agree" required> I Agree
+                </label>
+                <p>By clicking <span class="register">Register</span>, you agree to the <span class="terms">Terms and Conditions</span> set out by this site, including our Cookie Use.</p>
+            </div>
+
+            <div class="name-fields">
+                <button class ="blue-button">Register</button>
+                <button class ="green-button">Sign In</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
