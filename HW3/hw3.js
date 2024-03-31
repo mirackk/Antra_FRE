@@ -173,9 +173,48 @@ const amountToCoins = (amount, coins) => {
 // 15
 // Write a JavaScript function to compute the value of bn where n is the exponent and b is the bases.
 // Accept b and n from the user and display the result.
-const compute = (b, n) => {
+const power = (b, n) => {
     return Math.pow(b, n);
 }
+// // Import the readline module
+// const readline = require('readline');
+
+// // Create an interface for input and output
+// const rl = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout
+// });
+
+// // Function to ask a question and return the response
+// function askQuestion(query) {
+//   return new Promise(resolve => rl.question(query, ans => {
+//     resolve(ans);
+//   }));
+// }
+
+// async function computePower() {
+//   // Ask for the base
+//   const base = await askQuestion("Enter the base (b): ");
+//   // Ask for the exponent
+//   const exponent = await askQuestion("Enter the exponent (n): ");
+
+//   const baseNum = Number(base);
+//   const exponentNum = Number(exponent);
+
+//   // Validate the input
+//   if (isNaN(baseNum) || isNaN(exponentNum)) {
+//     console.log("Please enter valid numbers for both base and exponent.");
+//   } else {
+//     // Compute and display the result
+//     const result = Math.pow(baseNum, exponentNum);
+//     console.log(`The result of ${baseNum}^${exponentNum} is: ${result}`);
+//   }
+
+//   rl.close();
+// }
+
+// computePower();
+
 
 // 16
 // Write a JavaScript function to extract unique characters from a string.
