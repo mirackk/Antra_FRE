@@ -419,10 +419,6 @@ const passFunction = (func) => {
 
 // 29
 // Write a JavaScript function to get the function name.
-// const functionName = () => {
-//     return this.name;
-// }
-function getName(){
+const functionName = () => {
     return this.name;
 }
-console.log(getName);
