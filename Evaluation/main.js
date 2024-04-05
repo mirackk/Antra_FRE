@@ -1,5 +1,3 @@
-// main.js
-
 const Api = (() => {
     const url = "http://localhost:4232/courseList";
     const getData = fetch(url).then((res) => res.json());
@@ -13,12 +11,16 @@ const View = (() => {
     const domStr = {
         availableCourses: ".course-container",
         selectedCourses: ".selected-courses .course-container",
+        courseUnit: ".course-unit",
+        totalCredit: "total-credit",
+        selectButton: "select-button",
     };
 
     const createCourseUnit = (course, index) => {
+        let type = course.required === "true" ? "Compulsory" : "Elective";
         return `<div class="course-unit ${index % 2 === 0 ? 'even' : ''}" data-credit="${course.credit}">
                     <p>${course.courseName}</p>
-                    <p>Course Type: ${course.required}</p>
+                    <p>Course Type: ${type}</p>
                     <p>Course Credit: ${course.credit}</p>
                 </div>`;
     };
@@ -46,7 +48,7 @@ const View = (() => {
 
 const Model = ((view, api) => {
     const { getData } = api;
-    const { domStr, createAvailableCourses,createSelectedCourses, render } = view;
+    const { domStr, createAvailableCourses, createSelectedCourses, render } = view;
 
     // state of available courses
     class AvailableCoursesState {
@@ -58,9 +60,9 @@ const Model = ((view, api) => {
         }
         set setAvailableCourses(courses) {
             this._availableCourses = courses;
-            const availableCoursesList = document.querySelector(view.domStr.availableCourses);
-            const tmp = view.createAvailableCourses(this._availableCourses);
-            view.render(availableCoursesList, tmp);
+            const availableCoursesList = document.querySelector(domStr.availableCourses);
+            const tmp = createAvailableCourses(this._availableCourses);
+            render(availableCoursesList, tmp);
         }
     }
 
@@ -73,22 +75,22 @@ const Model = ((view, api) => {
         get getSelectedCourses() {
             return this._selectedCourses;
         }
+        get getTotalCredit() {
+            return this.totalCredit;
+        }
         set setSelectedCourses(courses) {
             this._selectedCourses = courses;
             this.totalCredit = this._selectedCourses.reduce((acc, course) => acc + course.credit, 0);
-            // const selectedCoursesList = document.querySelector(domStr.selectedCourses);
-            // const tmp = createSelectedCourses(this._selectedCourses);
-            // render(selectedCoursesList, tmp);
             this.updateTotalCredit();
         }
+
         renderSelectedCoursesResult() {
             const selectedCoursesList = document.querySelector(domStr.selectedCourses);
             const tmp = createSelectedCourses(this._selectedCourses);
             render(selectedCoursesList, tmp);
         }
-
         updateTotalCredit() {
-            const totalCreditDisplay = document.getElementById("total-credit");
+            const totalCreditDisplay = document.getElementById(domStr.totalCredit);
             totalCreditDisplay.textContent = this.totalCredit;
         }
         addCourse(course) {
@@ -126,15 +128,24 @@ const Controller = ((view, model) => {
 
     // handle course click event
     const handleCourseClick = (e) => {
-        const courseUnit = e.target.closest(".course-unit");
+        const courseUnit = e.target.closest(domStr.courseUnit);
         if (courseUnit && !isSelectButtonClicked) {
-            courseUnit.classList.toggle("selected");
             const courseData = {
                 courseName: courseUnit.querySelector("p:first-child").textContent,
                 required: courseUnit.querySelector("p:nth-child(2)").textContent.split(": ")[1],
                 credit: parseInt(courseUnit.dataset.credit),
             };
 
+            // total credits limit
+            const newTotalCredit = selectedState.totalCredit + (courseUnit.classList.contains("selected") ? -courseData.credit : courseData.credit);
+            let limit = 18;
+            if (newTotalCredit > limit) {
+                alert("You can only choose up to 18 credits in one semester");
+                return;
+            }
+
+            // click on the course unit once or twice
+            courseUnit.classList.toggle("selected");
             if (courseUnit.classList.contains("selected")) {
                 selectedState.addCourse(courseData);
             } else {
@@ -144,28 +155,32 @@ const Controller = ((view, model) => {
     }
 
     // handle select button click event
-    const handleSelectClick = () => {
-        isSelectButtonClicked = true;
-        const availableCoursesList = document.querySelector(view.domStr.availableCourses);
-        const selectedCourses = selectedState.getSelectedCourses;
-        // clear the selected courses from the available courses
-        const availableCourses = availableState.getAvailableCourses.filter(
-            (course) => !selectedCourses.some((selectedCourse) => selectedCourse.courseName === course.courseName)
-        );
-        availableState.setAvailableCourses = availableCourses;
-        // render the selected courses
-        selectedState.renderSelectedCoursesResult();
-        // set button disabled
-        const selectButton = document.getElementById("select-button");
-        selectButton.disabled = true;
+    const handleSelectClick = (e) => {
+        const confirmMessage = `You have chosen ${selectedState.getTotalCredit} credits for this semester. You cannot change once you submit. Do you want to confirm?`;
+
+        if (confirm(confirmMessage)) {
+            isSelectButtonClicked = true;
+            const availableCoursesList = document.querySelector(domStr.availableCourses);
+            const selectedCourses = selectedState.getSelectedCourses;
+            // clear the selected courses from the available courses
+            const availableCourses = availableState.getAvailableCourses.filter(
+                (course) => !selectedCourses.some((selectedCourse) => selectedCourse.courseName === course.courseName)
+            );
+            availableState.setAvailableCourses = availableCourses;
+            // render the selected courses
+            selectedState.renderSelectedCoursesResult();
+            // set button disabled
+            const selectButton = document.getElementById(domStr.selectButton);
+            selectButton.disabled = true;
+        }
     };
 
     const bootstrap = () => {
         init();
-        const availableCoursesContainer = document.querySelector(view.domStr.availableCourses);
+        const availableCoursesContainer = document.querySelector(domStr.availableCourses);
         availableCoursesContainer.addEventListener("click", handleCourseClick);
 
-        const selectButton = document.getElementById("select-button");
+        const selectButton = document.getElementById(domStr.selectButton);
         selectButton.addEventListener("click", handleSelectClick);
     };
 
