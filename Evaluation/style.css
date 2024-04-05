@@ -1,0 +1,51 @@
+/* styles.css */
+body, html {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center; /* Center the container horizontally */
+    align-items: center; /* Center the container vertically */
+  }
+  
+  .container {
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center children vertically */
+    align-items: center; /* Center children horizontally */
+    padding: 10px; /* Padding inside the container */
+  }
+  
+  .selection-area {
+    display: flex;
+    justify-content: space-around; /* Space between the course lists */
+  }
+  
+  .course-list, .selected-courses {
+    height: 300px; /* Container height as per requirement */
+    width: 200px; /* Container width as per requirement */
+    flex: 1; /* Each takes equal space */
+    border: 1px solid black;
+    margin: 50px; /* Space from the container edges */
+    overflow-y: auto; /* Enable scrolling when content overflows */
+  }
+  
+  .course-unit {
+    border: 1px solid black; /* Border around each course unit */
+    text-align: center; /* Center text inside the course unit */
+    padding: 5px; /* Padding inside the course unit */
+    margin: 5px; /* Margin around the course unit */
+  }
+  
+  .course-unit:nth-child(even) {
+    background-color: rgb(221, 239, 221); /* Background for even children */
+  }
+  
+  .list-title {
+    width: 100%; /* Full width of the list area */
+    text-align: center; /* Center text for the list title */
+  }
+  
+  .credit-display {
+    text-align: center; /* Center text for the credit display */
+    width: 100%; /* Take the full width of the container */
+  }
+  
