@@ -31,7 +31,7 @@ body, html {
   .course-unit {
     border: 1px solid black; /* Border around each course unit */
     text-align: center; /* Center text inside the course unit */
-    padding: 5px; /* Padding inside the course unit */
+    padding: 0px; /* Padding inside the course unit */
     margin: 5px; /* Margin around the course unit */
   }
   
