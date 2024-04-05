@@ -38,6 +38,11 @@ body, html {
   .course-unit:nth-child(even) {
     background-color: rgb(221, 239, 221); /* Background for even children */
   }
+
+  .course-unit.selected {
+    background-color: deepskyblue;
+    color: white;
+  }
   
   .list-title {
     width: 100%; /* Full width of the list area */
