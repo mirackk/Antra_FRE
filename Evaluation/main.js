@@ -6,6 +6,7 @@ const Api = (() => {
     };
 })();
 
+
 const View = (() => {
     // dom elements
     const domStr = {
@@ -16,6 +17,7 @@ const View = (() => {
         selectButton: "select-button",
     };
 
+    // template for course unit
     const createCourseUnit = (course, index) => {
         let type = course.required === true ? "Compulsory" : "Elective";
         return `<div class="course-unit" data-credit="${course.credit}">
@@ -46,6 +48,7 @@ const View = (() => {
     };
 })();
 
+
 const Model = ((view, api) => {
     const { getData } = api;
     const { domStr, createAvailableCourses, createSelectedCourses, render } = view;
@@ -67,6 +70,7 @@ const Model = ((view, api) => {
     }
 
     // state of selected courses
+    // selected courses are the courses that the user has chosen but not clicked the submit button
     class SelectedCoursesState {
         constructor() {
             this._selectedCourses = [];
@@ -84,11 +88,13 @@ const Model = ((view, api) => {
             this.updateTotalCredit();
         }
 
+        // this function will only be called when the user clicks the submit button
         renderSelectedCoursesResult() {
             const selectedCoursesList = document.querySelector(domStr.selectedCourses);
             const tmp = createSelectedCourses(this._selectedCourses);
             render(selectedCoursesList, tmp);
         }
+
         updateTotalCredit() {
             const totalCreditDisplay = document.getElementById(domStr.totalCredit);
             totalCreditDisplay.textContent = this.totalCredit;
@@ -111,12 +117,13 @@ const Model = ((view, api) => {
     };
 })(View, Api);
 
+
 const Controller = ((view, model) => {
     const { domStr } = view;
     const { getData, AvailableCoursesState, SelectedCoursesState } = model;
     const availableState = new AvailableCoursesState();
     const selectedState = new SelectedCoursesState();
-    let isSelectButtonClicked = false;
+    let isSelectButtonClicked = false; // flag to check if the select button is clicked
 
     // initialize the page
     const init = () => {
@@ -160,15 +167,18 @@ const Controller = ((view, model) => {
 
         if (confirm(confirmMessage)) {
             isSelectButtonClicked = true;
-            const availableCoursesList = document.querySelector(domStr.availableCourses);
+            // const availableCoursesList = document.querySelector(domStr.availableCourses);
             const selectedCourses = selectedState.getSelectedCourses;
+
             // clear the selected courses from the available courses
             const availableCourses = availableState.getAvailableCourses.filter(
                 (course) => !selectedCourses.some((selectedCourse) => selectedCourse.courseName === course.courseName)
             );
             availableState.setAvailableCourses = availableCourses;
+
             // render the selected courses
             selectedState.renderSelectedCoursesResult();
+
             // set button disabled
             const selectButton = document.getElementById(domStr.selectButton);
             selectButton.disabled = true;
@@ -188,5 +198,6 @@ const Controller = ((view, model) => {
         bootstrap,
     };
 })(View, Model);
+
 
 Controller.bootstrap();
