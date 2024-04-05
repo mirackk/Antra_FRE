@@ -35,7 +35,7 @@ body, html {
     /* line-height: 5px; */
   }
   
-  .course-unit:nth-child(even) {
+  .course-unit:nth-child(odd) {
     background-color: rgb(221, 239, 221); /* Background for even children */
   }
 
@@ -49,6 +49,7 @@ body, html {
   }
   
   .credit-display {
+    margin: 0px;
     text-align: center; 
     width: 100%; 
   }
