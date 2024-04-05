@@ -17,7 +17,7 @@ const View = (() => {
     };
 
     const createCourseUnit = (course, index) => {
-        let type = course.required === "true" ? "Compulsory" : "Elective";
+        let type = course.required === true ? "Compulsory" : "Elective";
         return `<div class="course-unit ${index % 2 === 0 ? 'even' : ''}" data-credit="${course.credit}">
                     <p>${course.courseName}</p>
                     <p>Course Type: ${type}</p>
