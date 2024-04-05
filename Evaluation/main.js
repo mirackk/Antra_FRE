@@ -35,6 +35,11 @@ const View = (() => {
         return courses.map((course, index) => createCourseUnit(course, index)).join('');
     };
 
+    const updateTotalCredit = (totalCredit) => {
+        const totalCreditDisplay = document.getElementById(domStr.totalCredit);
+        totalCreditDisplay.textContent = totalCredit;
+    };
+
     // render the view
     const render = (element, tmp) => {
         element.innerHTML = tmp;
@@ -44,6 +49,7 @@ const View = (() => {
         domStr,
         createAvailableCourses,
         createSelectedCourses,
+        updateTotalCredit,
         render,
     };
 })();
@@ -51,7 +57,7 @@ const View = (() => {
 
 const Model = ((view, api) => {
     const { getData } = api;
-    const { domStr, createAvailableCourses, createSelectedCourses, render } = view;
+    const { domStr, createAvailableCourses, createSelectedCourses,updateTotalCredit, render } = view;
 
     // state of available courses
     class AvailableCoursesState {
@@ -85,7 +91,7 @@ const Model = ((view, api) => {
         set setSelectedCourses(courses) {
             this._selectedCourses = courses;
             this.totalCredit = this._selectedCourses.reduce((acc, course) => acc + course.credit, 0);
-            this.updateTotalCredit();
+            updateTotalCredit(this.totalCredit);
         }
 
         // this function will only be called when the user clicks the submit button
@@ -95,10 +101,6 @@ const Model = ((view, api) => {
             render(selectedCoursesList, tmp);
         }
 
-        updateTotalCredit() {
-            const totalCreditDisplay = document.getElementById(domStr.totalCredit);
-            totalCreditDisplay.textContent = this.totalCredit;
-        }
         addCourse(course) {
             this._selectedCourses.push(course);
             this.setSelectedCourses = this._selectedCourses;
