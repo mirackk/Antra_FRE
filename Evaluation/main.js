@@ -46,7 +46,7 @@ const View = (() => {
 
 const Model = ((view, api) => {
     const { getData } = api;
-    const { domStr, createAvailableCourses, render } = view;
+    const { domStr, createAvailableCourses,createSelectedCourses, render } = view;
 
     // state of available courses
     class AvailableCoursesState {
@@ -76,11 +76,17 @@ const Model = ((view, api) => {
         set setSelectedCourses(courses) {
             this._selectedCourses = courses;
             this.totalCredit = this._selectedCourses.reduce((acc, course) => acc + course.credit, 0);
+            // const selectedCoursesList = document.querySelector(domStr.selectedCourses);
+            // const tmp = createSelectedCourses(this._selectedCourses);
+            // render(selectedCoursesList, tmp);
+            this.updateTotalCredit();
+        }
+        renderSelectedCoursesResult() {
             const selectedCoursesList = document.querySelector(domStr.selectedCourses);
             const tmp = createSelectedCourses(this._selectedCourses);
             render(selectedCoursesList, tmp);
-            this.updateTotalCredit();
         }
+
         updateTotalCredit() {
             const totalCreditDisplay = document.getElementById("total-credit");
             totalCreditDisplay.textContent = this.totalCredit;
@@ -93,11 +99,7 @@ const Model = ((view, api) => {
             this._selectedCourses = this._selectedCourses.filter((course) => course.courseName !== courseName);
             this.setSelectedCourses = this._selectedCourses;
         }
-        clearSelectedCourses() {
-            this._selectedCourses = [];
-            this.totalCredit = 0;
-            this.setSelectedCourses = this._selectedCourses;
-        }
+
     }
 
     return {
@@ -122,7 +124,8 @@ const Controller = ((view, model) => {
         });
     }
 
-    const handleCourseSelected = (e) => {
+    // handle course click event
+    const handleCourseClick = (e) => {
         const courseUnit = e.target.closest(".course-unit");
         if (courseUnit && !isSelectButtonClicked) {
             courseUnit.classList.toggle("selected");
@@ -140,10 +143,30 @@ const Controller = ((view, model) => {
         }
     }
 
+    // handle select button click event
+    const handleSelectClick = () => {
+        isSelectButtonClicked = true;
+        const availableCoursesList = document.querySelector(view.domStr.availableCourses);
+        const selectedCourses = selectedState.getSelectedCourses;
+        // clear the selected courses from the available courses
+        const availableCourses = availableState.getAvailableCourses.filter(
+            (course) => !selectedCourses.some((selectedCourse) => selectedCourse.courseName === course.courseName)
+        );
+        availableState.setAvailableCourses = availableCourses;
+        // render the selected courses
+        selectedState.renderSelectedCoursesResult();
+        // set button disabled
+        const selectButton = document.getElementById("select-button");
+        selectButton.disabled = true;
+    };
+
     const bootstrap = () => {
         init();
         const availableCoursesContainer = document.querySelector(view.domStr.availableCourses);
         availableCoursesContainer.addEventListener("click", handleCourseClick);
+
+        const selectButton = document.getElementById("select-button");
+        selectButton.addEventListener("click", handleSelectClick);
     };
 
     return {
