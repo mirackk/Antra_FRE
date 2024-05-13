@@ -1,55 +1,61 @@
-body, html {
+body,
+html {
     font-family: Arial, sans-serif;
     display: flex;
-    justify-content: center; 
-    align-items: center; 
-  }
-  
-  .container {
-    display: flex; /* Use flexbox layout */
-    flex-direction: column; /* Stack children vertically */
-    justify-content: center; 
-    align-items: center; 
-    padding: 10px; 
-  }
-  
-  .selection-area {
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    /* Use flexbox layout */
+    flex-direction: column;
+    /* Stack children vertically */
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.selection-area {
     display: flex;
     justify-content: space-around;
-  }
-  
-  .course-list, .selected-courses {
-    height: 300px; 
-    width: 200px; 
-    border: 1px solid black;
-    margin: 50px; 
-    overflow-y: auto; /* Enable scrolling when content overflows */
-  }
-  
-  .course-unit {
-    border: 1px solid black; /* Border around each course unit */
-    text-align: center; 
-    padding: 0px; 
-    margin: 5px; 
-    /* line-height: 5px; */
-  }
-  
-  .course-unit:nth-child(odd) {
-    background-color: rgb(221, 239, 221); /* Background for even children */
-  }
+}
 
-  .course-unit.selected {
+.course-list,
+.selected-courses {
+    height: 300px;
+    width: 200px;
+    border: 1px solid black;
+    margin: 50px;
+    overflow-y: auto;
+    /* Enable scrolling when content overflows */
+}
+
+.course-unit {
+    border: 1px solid black;
+    /* Border around each course unit */
+    text-align: center;
+    padding: 0px;
+    margin: 5px;
+    /* line-height: 5px; */
+}
+
+.course-unit:nth-child(odd) {
+    background-color: rgb(221, 239, 221);
+    /* Background for even children */
+}
+
+.course-unit.selected {
     background-color: deepskyblue;
-  }
-  
-  .list-title {
+}
+
+.list-title {
     margin: 20px;
-    text-align: center; 
-  }
-  
-  .credit-display {
+    text-align: center;
+}
+
+.credit-display {
     margin: 0px;
-    text-align: center; 
-    width: 100%; 
-  }
-  
+    text-align: center;
+    width: 100%;
+}
