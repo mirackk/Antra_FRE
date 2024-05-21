@@ -9,6 +9,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService} from '@nestjs/config';
 import { UserSchema,User } from './users/entities/user.entity';
 import { UsersService } from './users/users.service';
+import { AuthModule } from './auth/auth.module';
+import { AuthService } from './auth/auth.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -27,8 +30,9 @@ import { UsersService } from './users/users.service';
       [{name: User.name, schema: UserSchema}],
     ),
     ConfigModule.forRoot({ isGlobal: true }),
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService,UsersService],
+  providers: [AppService,UsersService,AuthService,JwtService],
 })
 export class AppModule {}
