@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -18,12 +18,12 @@ export class AuthService {
 
     async validateUser(username: string, pwd: string) 
     {
-        const user = await this.userModel.findOne({username: username, password: pwd});
+        const user = await this.userModel.findOne({username: username, password: pwd}).exec();
         
         
         if(user){
             const accessToken = this.jwtService.sign({username: user.username,password: user.password},{secret: 'mirack'});
-            return accessToken;
+            return {accessToken,user};
         }
         
         return null;

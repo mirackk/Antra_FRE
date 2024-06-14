@@ -4,6 +4,8 @@ import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  // 启用 CORS
+  app.enableCors();
   await app.listen(3000);
   // print out all the registered routes
   const server = app.getHttpServer();
@@ -20,5 +22,7 @@ async function bootstrap() {
     .filter((item) => item !== undefined);
 
   Logger.log('Registered Routes:', JSON.stringify(availableRoutes, null, 2));
+
+  
 }
 bootstrap();
