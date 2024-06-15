@@ -1,0 +1,24 @@
+.table {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .table-header {
+    font-weight: bold;
+    background-color: #a31687;
+  }
+  
+  .table-row {
+    display: flex;
+    border-bottom: 1px solid #3f0394;
+  }
+  
+  .table-cell {
+    flex: 1;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  
+  
+  

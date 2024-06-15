@@ -1,0 +1,19 @@
+<div>
+    <input [formControl]="filterControl" placeholder="Filter users">
+</div>
+<div class="table">
+    <div class="table-header">
+        <div class="table-row">
+            <div class="table-cell">User ID</div>
+            <div class="table-cell">Username</div>
+            <div class="table-cell">Profile URL</div>
+        </div>
+    </div>
+    <div class="table-body">
+        <div class="table-row" *ngFor="let user of filteredUsers">
+            <div class="table-cell">{{ user.id }}</div>
+            <div class="table-cell">{{ user.login }}</div>
+            <div class="table-cell">{{ user.url }}</div>
+        </div>
+    </div>
+</div>
