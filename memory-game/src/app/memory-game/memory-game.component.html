@@ -1,0 +1,15 @@
+<div class="game-board">
+    <div
+      class="card"
+      *ngFor="let emoji of shuffledEmojis; index as i"
+      [class.flipped]="isCardFlipped(i)"
+      (click)="flipCard(i)"
+    >
+      <div class="card-inner">
+        <div class="card-front">?</div>
+        <div class="card-back">{{ emoji }}</div>
+      </div>
+    </div>
+  </div>
+  <button (click)="playAgain()">Play Again</button>
+  
